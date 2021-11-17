@@ -1,6 +1,7 @@
 package com.ohi.board.ohiboard.domain.user;
 
 
+import com.ohi.board.ohiboard.domain.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class User {
+public class User extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //sequence, auto_increment
@@ -46,5 +47,12 @@ public class User {
         this.password = password;
     }
 
+    /**
+     * 회원수정 메소드
+     */
+    public void update(String password, String nickname) {
+        this.password = password;
+        this.nickname = nickname;
+    }
 
 }

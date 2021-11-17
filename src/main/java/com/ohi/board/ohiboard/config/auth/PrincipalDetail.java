@@ -22,6 +22,21 @@ public class PrincipalDetail implements UserDetails {
         return collection;
     }
 
+    //사용자 이메일
+    public String getEmail() {
+        return user.getEmail();
+    }
+
+    //사용자 닉네임
+    public String getNickname() {
+        return user.getNickname();
+    }
+
+    //사용자 pk
+    public Long getId() {
+        return user.getId();
+    }
+
     //사용자 패스워드
     @Override
     public String getPassword() {
@@ -56,5 +71,19 @@ public class PrincipalDetail implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+
+
+
+    /*업데이트 된 유저 정보 */
+    public void setUser(User userEntity) {
+
+
+    }
+
+    public User getUser() {
+
+        return null;
     }
 }

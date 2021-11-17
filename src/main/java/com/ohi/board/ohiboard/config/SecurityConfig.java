@@ -4,6 +4,7 @@ import com.ohi.board.ohiboard.config.auth.PrincipalDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,10 +29,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(principalDetailService).passwordEncoder(bCryptPasswordEncoder());
     }
 
+    /*회원수정관련*/
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**").permitAll()
@@ -41,5 +49,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/auth/user/login")
                 .loginProcessingUrl("/auth/user/login")
                 .defaultSuccessUrl("/");
+        http
+
+                .rememberMe().tokenValiditySeconds(60 * 60 * 7)
+                .userDetailsService(principalDetailService);
     }
 }
